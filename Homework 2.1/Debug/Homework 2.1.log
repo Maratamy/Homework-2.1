@@ -1,0 +1,4 @@
+﻿  Homework 2.1.cpp
+H:\Visual Studio Solutions\Homework 2.1\Homework 2.1\Homework 2.1.cpp(88,26): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+H:\Visual Studio Solutions\Homework 2.1\Homework 2.1\Homework 2.1.cpp(119,26): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  Homework 2.1.vcxproj -> H:\Visual Studio Solutions\Homework 2.1\Debug\Homework 2.1.exe
