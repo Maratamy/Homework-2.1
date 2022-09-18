@@ -69,23 +69,21 @@ public:
          delete[] arr;
      }
 };
-int gg = 0;
-void txt_input(RationalNumbers input, ifstream &File) {
+void txt_input(RationalNumbers *input, ifstream &File) {
 
     File.open("inputFile.txt");
     if (!File.is_open()) {
         cout << "File Error! File not found! Check file!" << endl;
+        return;
     }
     double Buffer;
     char InputStr[80];
 
     while (File) {
-
         File >> InputStr;
-        cout << InputStr << endl;
         if (strcmp(InputStr, "\0")) {
             Buffer = atof(InputStr);
-            input.insert(Buffer);
+            input->insert(Buffer);
         }
     }
     File.close();
@@ -102,32 +100,38 @@ void txt_output(RationalNumbers out, ofstream &o_file) {
     o_file.close();
 }
 
+void bin_input(RationalNumbers* input) {
+    string FName = "inputFile_bin.bin";
+    ifstream in(FName, ios::binary);  
+    double Temp_buffer;
+    while(!in.eof()){
+        in.read((char*)&Temp_buffer, sizeof(double));
+        input->insert(Temp_buffer);
+    }
+    in.close();
+
+}
+
+void bin_out(RationalNumbers output) {
+    string FName = "out_bin.txt";
+    ofstream out(FName, ios::binary);
+    for (int i = 0; i < output.Get_Size(); i++)
+    {
+        out.write((char*)&output[i], sizeof(output[i]));
+    }
+    out.close();
+}
+
 int main()
 {   ifstream File;
     
     RationalNumbers S1(0);
-   // txt_input(S1, File);
-   File.open("inputFile.txt");
-    if (!File.is_open()) {
-        cout << "File Error! File not found! Check file!" << endl;
-    }
-    int Buffer;
-    char InputStr[80];
-    while (File) {
-        File >> InputStr;
-        if (strcmp(InputStr, "\0")) {
-            Buffer = atof(InputStr);
-            S1.insert(Buffer);
-        }
-    }
+    txt_input(&S1, File);
     ofstream o_file;
-    
+    bin_out(S1);
     txt_output(S1, o_file);
-
-    cout << endl; 
     S1.insert(8218);
     txt_output(S1, o_file);
-    cout << S1.Get_Size() << endl;
     S1.erase(1, 2);
     txt_output(S1, o_file);
 
